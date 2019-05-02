@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfw-gl-sva" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="50" y="220" width="275" height="247"/>
+                                <rect key="frame" x="0.0" y="220" width="375" height="247"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -27,8 +27,8 @@
                         <constraints>
                             <constraint firstItem="xfw-gl-sva" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="200" id="kiU-8T-f3e"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xfw-gl-sva" secondAttribute="bottom" constant="200" id="lu7-kz-Ij3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xfw-gl-sva" secondAttribute="trailing" constant="50" id="pU5-d3-8LE"/>
-                            <constraint firstItem="xfw-gl-sva" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="s4W-Ul-TFe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xfw-gl-sva" secondAttribute="trailing" id="pU5-d3-8LE"/>
+                            <constraint firstItem="xfw-gl-sva" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s4W-Ul-TFe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

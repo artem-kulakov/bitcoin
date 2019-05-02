@@ -13,43 +13,40 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var chtChart: LineChartView!
     
-    var visitors: [Double] = [1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5, 1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5, 1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5, 1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5]
     var timer = Timer()
     var chartEntry = [ChartDataEntry]()
-    var i = 0
+    var x = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scheduledTimerWithTimeInterval()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     func scheduledTimerWithTimeInterval(){
-        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateChart), userInfo: nil, repeats: true)
     }
     
     @objc private func updateChart() {
         
-        if i < visitors.count {
-            let value = ChartDataEntry(x: Double(i), y: visitors[i])
-            chartEntry.append(value)
-            
-            if i > 8 {
-                chartEntry.remove(at: 0)
-            }
-            
-            let line = LineChartDataSet(entries: chartEntry, label: "Visitor")
-            line.colors = [UIColor.green]
-            
-            let data = LineChartData()
-            data.addDataSet(line)
-            
-            chtChart.data = data
-            chtChart.chartDescription?.text = "Visitors Count"
+        let y = Double.random(in: 0...10)
+        
+        let value = ChartDataEntry(x: Double(x), y: y)
+        chartEntry.append(value)
+        
+        if chartEntry.count > 12 {
+            chartEntry.remove(at: 0)
         }
         
-        i += 1
+        let line = LineChartDataSet(entries: chartEntry, label: "Visitor")
+        line.colors = [UIColor.green]
+        
+        let data = LineChartData()
+        data.addDataSet(line)
+        
+        chtChart.data = data
+        chtChart.chartDescription?.text = "Visitors Count"
+        
+        x += 1
     }
 }
 
