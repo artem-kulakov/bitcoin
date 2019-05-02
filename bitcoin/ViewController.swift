@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var usdLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var chtChart: LineChartView!
-
+    @IBOutlet weak var btcPriceLabel: UILabel!
+    
     @IBAction func buyButton(_ sender: UIButton) {
         if (usd_score >= deal_amount_usd) {
             btc_score += deal_amount_usd / btc_value;
@@ -97,14 +98,24 @@ class ViewController: UIViewController {
             let value = ChartDataEntry(x: Double(i-12), y: initialData[i])
             chartEntry.append(value)
         }
-        let line = LineChartDataSet(entries: chartEntry, label: "Visitor")
-        line.colors = [UIColor.green]
+        
+        let line = LineChartDataSet(entries: chartEntry, label: "")
+        line.drawValuesEnabled = false
+        line.lineWidth = 4.0
+        line.circleColors = [UIColor.orange]
+        line.circleHoleColor = UIColor.orange
+        line.circleRadius = 5.0
+        line.colors = [UIColor.orange]
         
         let data = LineChartData()
         data.addDataSet(line)
         
         chtChart.data = data
-        chtChart.chartDescription?.text = "Visitors Count"
+        
+        chtChart.leftAxis.drawLabelsEnabled = false
+        chtChart.rightAxis.drawLabelsEnabled = false
+        chtChart.xAxis.drawLabelsEnabled = false
+        chtChart.legend.enabled = false
     }
     
     func scheduledTimerWithTimeInterval(){
@@ -145,17 +156,19 @@ class ViewController: UIViewController {
             btc_value = btc_value * (1 - min_btc_change / 100);
         }
 
-        // Show BTC value
-//        var btc_value_output = Math.floor(btc_value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//        $$(".btc_value").text('$' + btc_value_output);
+        // Show BTC price
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 0
         
+        btcPriceLabel.text = formatter.string(from: NSNumber(value: btc_value))!
+
         // Step-decrease trend duration
         trend_duration -= 1;
 
         // Show total score
         let total_score = round(btc_score * btc_value + usd_score);
         
-        let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 0
         
@@ -176,14 +189,23 @@ class ViewController: UIViewController {
             chartEntry.remove(at: 0)
         }
         
-        let line = LineChartDataSet(entries: chartEntry, label: "Visitor")
-        line.colors = [UIColor.green]
+        let line = LineChartDataSet(entries: chartEntry, label: "")
+        line.drawValuesEnabled = false
+        line.lineWidth = 4.0
+        line.circleColors = [UIColor.orange]
+        line.circleHoleColor = UIColor.orange
+        line.circleRadius = 5.0
+        line.colors = [UIColor.orange]
         
         let data = LineChartData()
         data.addDataSet(line)
         
         chtChart.data = data
-        chtChart.chartDescription?.text = "Visitors Count"
+        
+        chtChart.leftAxis.drawLabelsEnabled = false
+        chtChart.rightAxis.drawLabelsEnabled = false
+        chtChart.xAxis.drawLabelsEnabled = false
+        chtChart.legend.enabled = false
         
         x += 1
     }
