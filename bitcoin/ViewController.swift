@@ -23,9 +23,9 @@ class ViewController: UIViewController {
     var x = 0
     
     // Initial score
-    var btc_score = 0;
-    var usd_score = 100000;
-    var deal_amount = 10000;
+    var btc_score = 0.0;
+    var usd_score = 100000.0;
+    var deal_amount = 10000.0;
     
     // BTC change
     var random = Double();
@@ -110,13 +110,14 @@ class ViewController: UIViewController {
         // Step-decrease trend duration
         trend_duration -= 1;
 
-        // Append data
-//        series.append(new Date().getTime(), btc_value);
-        
         // Show total score
-//        total_score = Math.round(btc_score * btc_value + usd_score);
-//        total_score_output = Math.floor(total_score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//        $$('.total_score_inner').text('$' + total_score_output);
+        let total_score = round(btc_score * btc_value + usd_score);
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 0
+        
+        totalLabel.text = formatter.string(from: NSNumber(value: total_score))!
         
         // Deal amount
 //        n = Math.log10(total_score / 100000);
