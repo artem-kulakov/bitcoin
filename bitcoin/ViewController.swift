@@ -17,6 +17,27 @@ class ViewController: UIViewController {
     var chartEntry = [ChartDataEntry]()
     var x = 0
     
+    // Initial score
+    var btc_score = 0;
+    var usd_score = 100000;
+    var deal_amount = 10000;
+    
+    // BTC change
+    var random = Double();
+    var max_btc_change = 50.0; // percent
+    var min_btc_change = 33.0; // percent
+    var btc_change = Double();
+    
+    // BTC value
+    var btc_value = 10000.0;
+    var btc_value_change = Double();
+    var btc_value_change_per_second = Double();
+    
+    // Trend duration
+    var max_trend_duration = 3.0;
+    var min_trend_duration = 1.0;
+    var trend_duration = 0.0;
+
     override func viewDidLoad() {
         super.viewDidLoad()
         scheduledTimerWithTimeInterval()
@@ -28,6 +49,25 @@ class ViewController: UIViewController {
     
     @objc private func updateChart() {
         
+        if (trend_duration == 0) {
+            // Random trend duration
+            trend_duration = floor(Double.random(in: 0...1) * (max_trend_duration - min_trend_duration + 1)) + min_trend_duration;
+            
+            // Random value
+            random = Double.random(in: 0...1) * 2 - 1;
+            
+            // BTC change in %
+            if (random > 0) {
+                btc_change = random * max_btc_change;
+            } else {
+                btc_change = random * min_btc_change;
+            }
+            
+            // BTC change in absolute terms
+            btc_value_change = btc_value * btc_change / 100;
+            btc_value_change_per_second = btc_value_change / trend_duration;
+        }
+
         let y = Double.random(in: 0...10)
         
         let value = ChartDataEntry(x: Double(x), y: y)
