@@ -70,10 +70,21 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZmR-7x-KZn">
+                                        <rect key="frame" x="162.5" y="65" width="50" height="30"/>
+                                        <state key="normal" title="Restart">
+                                            <color key="titleColor" red="1" green="0.47058823529411764" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="restart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bdJ-PI-Pdy"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="ZmR-7x-KZn" firstAttribute="top" secondItem="h1i-lI-GcA" secondAttribute="bottom" id="2Ee-jH-ycw"/>
                                     <constraint firstItem="TjE-tc-6NH" firstAttribute="centerX" secondItem="6W5-pt-dCR" secondAttribute="centerX" id="K62-zu-3nk"/>
+                                    <constraint firstItem="ZmR-7x-KZn" firstAttribute="centerX" secondItem="6W5-pt-dCR" secondAttribute="centerX" id="eZk-v4-OJ8"/>
                                     <constraint firstAttribute="height" constant="100" id="ify-3G-3Z7"/>
                                     <constraint firstItem="h1i-lI-GcA" firstAttribute="centerY" secondItem="6W5-pt-dCR" secondAttribute="centerY" id="qRd-1O-iGM"/>
                                     <constraint firstItem="h1i-lI-GcA" firstAttribute="top" secondItem="TjE-tc-6NH" secondAttribute="bottom" id="uCJ-Ca-sgT"/>

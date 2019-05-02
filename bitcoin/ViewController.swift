@@ -14,6 +14,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var btcLabel: UILabel!
     @IBOutlet weak var usdLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBAction func restart(_ sender: UIButton) {
+        btc_score = 0;
+        usd_score = 100000;
+        deal_amount = 10000;
+        btc_value = 5000;
+        btcLabel.text = "Ƀ0.000"
+        usdLabel.text = "$100,000"
+        totalLabel.text = "$100,000"
+    }
     @IBOutlet weak var chtChart: LineChartView!
     @IBOutlet weak var btcPriceLabel: UILabel!
     
