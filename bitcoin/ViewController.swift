@@ -67,10 +67,47 @@ class ViewController: UIViewController {
             btc_value_change = btc_value * btc_change / 100;
             btc_value_change_per_second = btc_value_change / trend_duration;
         }
-
-        let y = Double.random(in: 0...10)
         
-        let value = ChartDataEntry(x: Double(x), y: y)
+        // Change BTC value
+        btc_value += btc_value_change_per_second;
+        
+        // Limit bottom level of BTC
+        if (btc_value < 500) {
+            btc_value = btc_value * (1 + max_btc_change / 100);
+        }
+        
+        // Limit top level of BTC
+        if (btc_value > 1000000) {
+            btc_value = btc_value * (1 - min_btc_change / 100);
+        }
+
+        // Show BTC value
+//        var btc_value_output = Math.floor(btc_value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//        $$(".btc_value").text('$' + btc_value_output);
+        
+        // Step-decrease trend duration
+        trend_duration -= 1;
+
+        // Append data
+//        series.append(new Date().getTime(), btc_value);
+        
+        // Show total score
+//        total_score = Math.round(btc_score * btc_value + usd_score);
+//        total_score_output = Math.floor(total_score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//        $$('.total_score_inner').text('$' + total_score_output);
+        
+        // Deal amount
+//        n = Math.log10(total_score / 100000);
+//        clicks = 10 + 10 * n;
+//        deal_amount_usd = total_score / clicks
+//        deal_amount_usd_output = Math.floor(deal_amount_usd).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // $$('.deal_amount').text('$' + deal_amount_usd_output);
+//        deal_amount_btc = deal_amount_usd / btc_value;
+
+        
+//        let y = Double.random(in: 0...10)
+        
+        let value = ChartDataEntry(x: Double(x), y: btc_value)
         chartEntry.append(value)
         
         if chartEntry.count > 12 {
