@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     var btc_change = Double();
     
     // BTC value
-    var btc_value = 10000.0;
+    var btc_value = 5000.0;
     var btc_value_change = Double();
     var btc_value_change_per_second = Double();
     
@@ -40,11 +40,28 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fillInitialChartEntry()
         scheduledTimerWithTimeInterval()
     }
 
+    func fillInitialChartEntry() {
+        let initialData = [4900.0, 5100.0, 5300.0, 5500.0, 5200.0, 4900.0, 4600.0, 4700.0, 4500.0, 4700.0, 4900.0, 5000.0]
+        for i in 0...11 {
+            let value = ChartDataEntry(x: Double(i-12), y: initialData[i])
+            chartEntry.append(value)
+        }
+        let line = LineChartDataSet(entries: chartEntry, label: "Visitor")
+        line.colors = [UIColor.green]
+        
+        let data = LineChartData()
+        data.addDataSet(line)
+        
+        chtChart.data = data
+        chtChart.chartDescription?.text = "Visitors Count"
+    }
+    
     func scheduledTimerWithTimeInterval(){
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateChart), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1.6, target: self, selector: #selector(self.updateChart), userInfo: nil, repeats: true)
     }
     
     @objc private func updateChart() {
@@ -104,12 +121,11 @@ class ViewController: UIViewController {
         // $$('.deal_amount').text('$' + deal_amount_usd_output);
 //        deal_amount_btc = deal_amount_usd / btc_value;
 
-        
-//        let y = Double.random(in: 0...10)
-        
+        // Append data to the chart
         let value = ChartDataEntry(x: Double(x), y: btc_value)
         chartEntry.append(value)
         
+        // Remove old data from the chart
         if chartEntry.count > 12 {
             chartEntry.remove(at: 0)
         }
