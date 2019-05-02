@@ -13,8 +13,10 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var chtChart: LineChartView!
     
-    var visitors: [Double] = [1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5]
+    var visitors: [Double] = [1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5, 1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5, 1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5, 1.0, 1.5, 1.3, 1.4, 1.0, 2.1, 2.2, 1.5]
     var timer = Timer()
+    var chartEntry = [ChartDataEntry]()
+    var i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,23 +30,26 @@ class ViewController: UIViewController {
     }
     
     @objc private func updateChart() {
-        var chartEntry = [ChartDataEntry]()
         
-        
-        
-        for i in 0..<visitors.count {
+        if i < visitors.count {
             let value = ChartDataEntry(x: Double(i), y: visitors[i])
             chartEntry.append(value)
+            
+            if i > 8 {
+                chartEntry.remove(at: 0)
+            }
+            
+            let line = LineChartDataSet(entries: chartEntry, label: "Visitor")
+            line.colors = [UIColor.green]
+            
+            let data = LineChartData()
+            data.addDataSet(line)
+            
+            chtChart.data = data
+            chtChart.chartDescription?.text = "Visitors Count"
         }
         
-        let line = LineChartDataSet(entries: chartEntry, label: "Visitor")
-        line.colors = [UIColor.green]
-        
-        let data = LineChartData()
-        data.addDataSet(line)
-        
-        chtChart.data = data
-        chtChart.chartDescription?.text = "Visitors Count"
+        i += 1
     }
 }
 
