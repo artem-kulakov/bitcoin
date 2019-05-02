@@ -37,7 +37,23 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sellButton(_ sender: UIButton) {
-        print("sell")
+        if (btc_score >= deal_amount_btc) {
+            usd_score += deal_amount_btc * btc_value;
+            btc_score -= deal_amount_btc;
+        } else {
+            usd_score += btc_score * btc_value;
+            btc_score = 0;
+        }
+
+        let formatter = NumberFormatter()
+        
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 3
+        btcLabel.text = "Ƀ" + formatter.string(from: NSNumber(value: btc_score))!
+        
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 0
+        usdLabel.text = formatter.string(from: NSNumber(value: usd_score))!
     }
     
     var timer = Timer()
