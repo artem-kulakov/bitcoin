@@ -11,7 +11,12 @@ import Charts
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var btcLabel: UILabel!
+    @IBOutlet weak var usdLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var chtChart: LineChartView!
+    @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var sellButton: UIButton!
     
     var timer = Timer()
     var chartEntry = [ChartDataEntry]()
