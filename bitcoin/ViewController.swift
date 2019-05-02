@@ -15,8 +15,30 @@ class ViewController: UIViewController {
     @IBOutlet weak var usdLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var chtChart: LineChartView!
-    @IBOutlet weak var buyButton: UIButton!
-    @IBOutlet weak var sellButton: UIButton!
+
+    @IBAction func buyButton(_ sender: UIButton) {
+        if (usd_score >= deal_amount_usd) {
+            btc_score += deal_amount_usd / btc_value;
+            usd_score -= deal_amount_usd;
+        } else {
+            btc_score += usd_score / btc_value;
+            usd_score = 0;
+        }
+
+        let formatter = NumberFormatter()
+
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 3
+        btcLabel.text = "Ƀ" + formatter.string(from: NSNumber(value: btc_score))!
+        
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 0
+        usdLabel.text = formatter.string(from: NSNumber(value: usd_score))!
+    }
+    
+    @IBAction func sellButton(_ sender: UIButton) {
+        print("sell")
+    }
     
     var timer = Timer()
     var chartEntry = [ChartDataEntry]()
@@ -26,6 +48,10 @@ class ViewController: UIViewController {
     var btc_score = 0.0;
     var usd_score = 100000.0;
     var deal_amount = 10000.0;
+    
+    // Deal amount
+    var deal_amount_usd = 0.0;
+    var deal_amount_btc = 0.0;
     
     // BTC change
     var random = Double();
@@ -120,12 +146,10 @@ class ViewController: UIViewController {
         totalLabel.text = formatter.string(from: NSNumber(value: total_score))!
         
         // Deal amount
-//        n = Math.log10(total_score / 100000);
-//        clicks = 10 + 10 * n;
-//        deal_amount_usd = total_score / clicks
-//        deal_amount_usd_output = Math.floor(deal_amount_usd).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        // $$('.deal_amount').text('$' + deal_amount_usd_output);
-//        deal_amount_btc = deal_amount_usd / btc_value;
+        let n = log10(total_score / 100000);
+        let clicks = 10 + 10 * n;
+        deal_amount_usd = total_score / clicks
+        deal_amount_btc = deal_amount_usd / btc_value;
 
         // Append data to the chart
         let value = ChartDataEntry(x: Double(x), y: btc_value)
